@@ -1,0 +1,196 @@
+/* --- 1. Global Setup & Typography --- */
+:root {
+    --font-ui: 'Inter', sans-serif;
+    --font-content: 'Source Serif Pro', serif;
+    
+    /* Light Mode */
+    --color-bg: #F8F8F6;
+    --color-bg-secondary: #FFFFFF;
+    --color-sidebar: #ECEEEF;
+    --color-text: #202020;
+    --color-text-secondary: #555;
+    --color-accent: #3366CC; /* Wikipedia Blue */
+    --color-border: #E0E0E0;
+    --color-user-bubble: #3366CC;
+    --color-user-text: #FFFFFF;
+    --color-ai-bubble: #FFFFFF;
+}
+
+body.dark-mode {
+    /* Dark Mode */
+    --color-bg: #1A1A1B;
+    --color-bg-secondary: #272729;
+    --color-sidebar: #202021;
+    --color-text: #D7DADC;
+    --color-text-secondary: #999;
+    --color-accent: #4A90E2;
+    --color-border: #3A3A3C;
+    --color-user-bubble: #4A90E2;
+    --color-user-text: #FFFFFF;
+    --color-ai-bubble: #272729;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: var(--font-ui);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- 2. Main App Layout --- */
+.app-container {
+    display: grid;
+    grid-template-columns: 260px 1fr; /* 2-column layout for MVP */
+    /* grid-template-columns: 260px 1fr 300px; */ /* 3-column layout */
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- 3. Sidebar (Left) --- */
+.sidebar {
+    background-color: var(--color-sidebar);
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.sidebar-header { margin-bottom: 20px; }
+.sidebar-header h2 { font-family: var(--font-ui); color: var(--color-accent); }
+.new-chat-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 15px;
+}
+.chat-history { flex-grow: 1; }
+.chat-history ul { list-style: none; }
+.chat-history li {
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.chat-history li:hover { background-color: var(--color-bg-secondary); }
+.chat-history li.active { background-color: var(--color-bg-secondary); font-weight: 500; }
+.sidebar-footer { display: flex; align-items: center; gap: 10px; }
+
+
+/* --- 4. Chat Main (Center) --- */
+.chat-main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.chat-header {
+    padding: 15px 30px;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-bg-secondary);
+}
+.chat-window {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+.chat-message {
+    max-width: 80%;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    border-radius: 18px;
+}
+.chat-message.user {
+    background-color: var(--color-user-bubble);
+    color: var(--color-user-text);
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+}
+.chat-message.ai {
+    background-color: var(--color-ai-bubble);
+    border: 1px solid var(--color-border);
+    border-bottom-left-radius: 4px;
+    font-family: var(--font-content); /* Serif font for AI answers! */
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+.chat-message.ai p { margin-bottom: 10px; }
+.chat-message.loading {
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+/* Chat Input Area */
+.chat-input-area {
+    padding: 20px 30px;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+    display: flex;
+    gap: 10px;
+}
+#chat-input {
+    flex-grow: 1;
+    font-family: var(--font-ui);
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    resize: none;
+    height: 48px;
+}
+#send-btn {
+    padding: 0 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* --- 5. Toggles & Switches (The Features) --- */
+.mode-toggle { display: flex; align-items: center; gap: 10px; }
+.mode-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    transition: color 0.3s;
+}
+.mode-label.active { color: var(--color-accent); }
+
+/* Standard Toggle Switch CSS */
+.switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute; cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; width: 18px;
+    left: 3px; bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider { background-color: var(--color-accent); }
+input:checked + .slider:before { transform: translateX(20px); }
