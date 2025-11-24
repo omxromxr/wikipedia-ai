@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insight - Wikipedia AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>🧭 Insight</h2>
+                <button class="new-chat-btn">+ New Chat</button>
+            </div>
+            <div class="chat-history">
+                <p>Chat History</p>
+                <ul>
+                    <li class="active">History of Rome</li>
+                    <li>Quantum Computing Explained</li>
+                    <li>Marie Curie's Discoveries</li>
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <label class="switch">
+                    <input type="checkbox" id="darkModeToggle">
+                    <span class="slider round"></span>
+                </label>
+                <span>Dark Mode</span>
+            </div>
+        </aside>
+
+        <main class="chat-main">
+            <header class="chat-header">
+                <h3>History of Rome</h3>
+                <div class="mode-toggle">
+                    <span id="mode-label-fast" class="mode-label active">⚡️ Fast</span>
+                    <label class="switch large">
+                        <input type="checkbox" id="mode-switch">
+                        <span class="slider round"></span>
+                    </label>
+                    <span id="mode-label-thinking" class="mode-label">🧠 Thinking</span>
+                </div>
+            </header>
+            
+            <div class="chat-window" id="chat-window">
+                <div class="chat-message ai">
+                    <p>Hello! I'm Insight. I use Wikipedia to answer your questions. Ask me anything!</p>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <textarea id="chat-input" placeholder="Ask me anything about..." rows="1"></textarea>
+                <button id="send-btn">Send</button>
+            </div>
+        </main>
+
+        <aside classs="right-sidebar">
+            </aside>
+
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
